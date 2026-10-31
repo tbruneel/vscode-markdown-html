@@ -1,4 +1,0 @@
-# Checkbox
-
-- [ ] unchecked
-- [x] checked
