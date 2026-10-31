@@ -1,5 +1,17 @@
 # Markdown PDF
 
+## Fork Modifications (	bruneel/vscode-markdown-pdf)
+
+This fork extends upstream yzane/vscode-markdown-pdf (2.2.0) to support **GitHub-style blockquote alerts** (> [!NOTE], > [!TIP], > [!IMPORTANT], > [!WARNING], > [!CAUTION]) out of the box across HTML, PDF, PNG, and JPEG exports:
+
+1. **GitHub Alerts markdown-it Plugin ([src/markdown-it-github-alerts.ts](src/markdown-it-github-alerts.ts)):**
+   - **Why:** Upstream yzane.markdown-pdf bundles its own markdown-it pipeline without markdown-it-github-alerts, causing > [!IMPORTANT] blockquotes to render as literal [!IMPORTANT] text instead of styled alert callouts.
+   - **What:** Added markdownItGitHubAlerts to convertMarkdownToHtml() in [src/extension.ts](src/extension.ts), emitting the exact same .markdown-alert.markdown-alert-<type> DOM structure and Octicon SVGs as GitHub and [	bruneel/vscode-markdown-alert](https://github.com/tbruneel/vscode-markdown-alert).
+2. **Default & Custom Stylesheet Support ([styles/markdown-pdf.css](styles/markdown-pdf.css)):**
+   - Added .markdown-alert CSS rules to the bundled default stylesheet as well as [	bruneel/markdown-stylesheets](https://github.com/tbruneel/markdown-stylesheets) so a single > [!IMPORTANT] block in Markdown renders identically on GitHub.com, in VS Code's built-in preview, and in markdown-pdf exports.
+
+---
+
 <p>
   <img src="images/banner.png" alt="Markdown PDF" width="400">
 </p>
