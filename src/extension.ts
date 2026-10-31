@@ -15,6 +15,7 @@ import { markdownItCheckbox } from './markdown-it-checkbox';
 import { full as markdownItEmojiFull } from 'markdown-it-emoji';
 import { markdownItNamedHeaders } from './markdown-it-named-headers';
 import markdownItContainer from 'markdown-it-container';
+import { markdownItGitHubAlerts } from './markdown-it-github-alerts';
 import markdownItPlantuml from 'markdown-it-plantuml';
 import markdownItKatex from '@vscode/markdown-it-katex';
 import { mathFencePlugin } from './markdown-it-math-fence';
@@ -335,6 +336,9 @@ function convertMarkdownToHtml(
       // markdown-it-container
       // https://github.com/markdown-it/markdown-it-container
       md.use(markdownItContainer, '', utils.buildContainerRenderer());
+
+      // GitHub-style blockquote alerts (> [!NOTE], > [!TIP], > [!IMPORTANT], > [!WARNING], > [!CAUTION])
+      md.use(markdownItGitHubAlerts);
 
       // PlantUML
       // https://github.com/gmunguia/markdown-it-plantuml
