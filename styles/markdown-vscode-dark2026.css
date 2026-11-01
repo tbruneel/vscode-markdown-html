@@ -5,7 +5,8 @@
  *    - extensions/theme-defaults/themes/2026-dark.json
  *--------------------------------------------------------------------------------------------*/
 
-:root {
+:root,
+body {
 	--vscode-font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", system-ui, "Ubuntu", "Droid Sans", sans-serif;
 	--vscode-editor-font-family: "SF Mono", Monaco, Menlo, Consolas, "Ubuntu Mono", "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace;
 	--vscode-editor-background: #121314;
@@ -23,6 +24,7 @@
 html {
 	background-color: var(--vscode-editor-background);
 	color: var(--vscode-editor-foreground);
+	padding: 0;
 }
 
 body {
@@ -32,7 +34,7 @@ body {
 	font-size: var(--markdown-font-size, 14px);
 	line-height: var(--markdown-line-height, 22px);
 	word-wrap: break-word;
-	width: 1012px;
+	width: 902px;
 	margin: 0 auto;
 	padding: 32px;
 	box-sizing: border-box;
@@ -107,20 +109,26 @@ ol {
 	margin-bottom: 0.7em;
 }
 
-hr {
+hr,
+.vscode-light hr,
+.vscode-dark hr {
 	border: 0;
 	height: 1px;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-h1 {
+h1,
+.vscode-light h1,
+.vscode-dark h1 {
 	font-size: 2em;
 	margin-top: 0;
 	padding-bottom: 0.3em;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-h2 {
+h2,
+.vscode-light h2,
+.vscode-dark h2 {
 	font-size: 1.5em;
 	padding-bottom: 0.3em;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.18);
@@ -151,7 +159,9 @@ table {
 	overflow: auto;
 }
 
-th {
+th,
+.vscode-light th,
+.vscode-dark th {
 	text-align: left;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.69);
 }
@@ -161,7 +171,11 @@ td {
 	padding: 5px 10px;
 }
 
-table > tbody > tr + tr > td {
+table > tbody > tr + tr > td,
+.vscode-light td,
+.vscode-dark td,
+.vscode-light table > tbody > tr + tr > td,
+.vscode-dark table > tbody > tr + tr > td {
 	border-top: 1px solid rgba(255, 255, 255, 0.18);
 }
 

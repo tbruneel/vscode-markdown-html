@@ -3,7 +3,7 @@
 A lightweight VS Code extension that exports Markdown (`.md`) files into **100% self-contained `.md.html` documents** (with inlined CSS, KaTeX math fonts, and local images) and includes a **built-in rendered viewer** for `*.md.html` files inside VS Code.
 
 Derived from [`yzane/vscode-markdown-pdf`](https://github.com/yzane/vscode-markdown-pdf) and paired with:
-- [`tbruneel/vscode-markdown-stylesheets`](https://github.com/tbruneel/vscode-markdown-stylesheets) — Declarative CSS extension providing the `1012px` preview layout and whitelisted VS Code 2026 & GitHub Primer themes for `"markdown.styles"`.
+- [`tbruneel/vscode-markdown-stylesheets`](https://github.com/tbruneel/vscode-markdown-stylesheets) — Declarative CSS extension providing the `902px` preview layout and whitelisted VS Code 2026 & GitHub Primer themes for `"markdown.styles"`.
 - [`tbruneel/vscode-markdown-alert`](https://github.com/tbruneel/vscode-markdown-alert) — Live VS Code Markdown preview support for GitHub Alerts.
 
 ---
@@ -30,7 +30,7 @@ Derived from [`yzane/vscode-markdown-pdf`](https://github.com/yzane/vscode-markd
 
 ## Configuration (`settings.json`)
 
-**Zero configuration is needed by default**—installing the three extensions automatically configures the `1012px` preview layout, GitHub Alerts, `*.md.html` viewer, auto-save updates, and active VS Code Light/Dark theme export.
+**Zero configuration is needed by default**—installing the three extensions automatically configures the `902px` preview layout, GitHub Alerts, `*.md.html` viewer, auto-save updates, and active VS Code Light/Dark theme export.
 
 If you want to override the theme in **both** the built-in Markdown Preview and `.md.html` exports (for example, to use GitHub Light), run **`Markdown Stylesheets: Select Theme`** from the Command Palette or set `"markdown-stylesheets.theme"` in `settings.json`:
 
