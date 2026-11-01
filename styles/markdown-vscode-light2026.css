@@ -282,24 +282,99 @@ body.wordWrap pre {
 	white-space: pre-wrap;
 }
 
-pre:not(.hljs),
+pre,
+pre:not(.hljs) {
+	position: relative;
+	padding: 0 48px 0 0;
+	border-radius: 3px;
+	overflow: visible;
+	background-color: var(--vscode-textCodeBlock-background);
+	border: 1px solid var(--vscode-widget-border);
+}
+
+pre:not(.hljs) > code,
 pre.hljs code > div {
+	display: block;
 	padding: 16px;
 	border-radius: 3px;
 	overflow: auto;
 }
 
-pre {
-	background-color: var(--vscode-textCodeBlock-background);
-	border: 1px solid var(--vscode-widget-border);
-}
-
 pre code {
-	display: inline-block;
+	display: block;
 	color: var(--vscode-editor-foreground);
 	tab-size: 4;
 	background: none;
 	padding: 0;
+}
+
+/* Code block copy button */
+.code-block-copy-button {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	border: 1px solid transparent;
+	border-radius: 6px;
+	background-color: transparent;
+	color: var(--vscode-editor-foreground);
+	cursor: pointer;
+	opacity: 1;
+	transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+
+pre:hover > .code-block-copy-button,
+.code-block-copy-button:focus {
+	opacity: 1;
+}
+
+.code-block-copy-button:hover {
+	background-color: var(--vscode-toolbar-hoverBackground, rgba(90, 93, 94, 0.18));
+}
+
+.code-block-copy-button:active {
+	background-color: var(--vscode-toolbar-activeBackground, rgba(99, 102, 103, 0.28));
+}
+
+.code-block-copy-button.copied {
+	color: var(--vscode-testing-iconPassed, #388a34);
+	opacity: 1;
+}
+
+.code-block-copy-button:hover::before,
+.code-block-copy-button:focus-visible::before,
+.code-block-copy-button.copied::before {
+	content: "Copy code to clipboard";
+	position: absolute;
+	right: calc(100% + 4px);
+	top: 50%;
+	transform: translateY(-50%);
+	padding: 4px 8px;
+	border-radius: 6px;
+	background-color: #25292e;
+	color: #ffffff;
+	font-family: var(--vscode-font-family);
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 20px;
+	white-space: nowrap;
+	pointer-events: none;
+	z-index: 10;
+}
+
+.code-block-copy-button.copied::before {
+	content: "Copied!";
+}
+
+@media print {
+	.code-block-copy-button {
+		display: none !important;
+	}
 }
 
 .page {

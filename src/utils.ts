@@ -366,6 +366,26 @@ export function buildStyleTags(options: BuildStyleTagsOptions): string {
   return style;
 }
 
+function normalizeHighlightLang(lang: string): string {
+  switch (lang.toLowerCase()) {
+    case 'shell':
+      return 'sh';
+    case 'py3':
+      return 'python';
+    case 'tsx':
+    case 'typescriptreact':
+      return 'jsx';
+    case 'json5':
+    case 'jsonc':
+      return 'json';
+    case 'c#':
+    case 'csharp':
+      return 'cs';
+    default:
+      return lang;
+  }
+}
+
 /** Returns a markdown-it highlight callback that renders mermaid blocks as <div> and other languages via highlight.js. */
 export function buildHighlightCallback(hljs: HLJSApi, escapeHtml: (str: string) => string): (str: string, lang: string) => string {
   return function (str: string, lang: string): string {
@@ -373,9 +393,10 @@ export function buildHighlightCallback(hljs: HLJSApi, escapeHtml: (str: string) 
       return '<div class="mermaid">' + str + '</div>';
     }
 
-    if (lang && hljs.getLanguage(lang)) {
+    const hljsLang = lang ? normalizeHighlightLang(lang) : '';
+    if (hljsLang && hljs.getLanguage(hljsLang)) {
       try {
-        str = hljs.highlight(str, { language: lang, ignoreIllegals: true }).value;
+        str = hljs.highlight(str, { language: hljsLang, ignoreIllegals: true }).value;
       } catch {
         str = escapeHtml(str);
       }
@@ -383,7 +404,8 @@ export function buildHighlightCallback(hljs: HLJSApi, escapeHtml: (str: string) 
       str = escapeHtml(str);
     }
 
-    return '<pre class="hljs"><code><div>' + str + '</div></code></pre>';
+    const codeClass = lang ? ` class="language-${escapeHtml(lang.toLowerCase())}"` : '';
+    return '<pre class="hljs"><code' + codeClass + '><div>' + str + '</div></code></pre>';
   };
 }
 
