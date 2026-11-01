@@ -4,21 +4,7 @@
   "description": "Exports Markdown files (.md) to self-contained Markdown files (.md.html) which are automatically opened by VS Code's built-in web browser.",
   "version": "1.0.0",
   "publisher": "tbruneel",
-  "engines": {
-    "vscode": "^1.110.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "license": "SEE LICENSE IN LICENSE.txt",
-  "keywords": [
-    "markdown",
-    "html",
-    "export",
-    "github-alerts",
-    "katex",
-    "mermaid"
-  ],
+  "license": "MIT",
   "homepage": "https://github.com/tbruneel/vscode-markdown-html#readme",
   "repository": {
     "type": "git",
@@ -27,15 +13,27 @@
   "bugs": {
     "url": "https://github.com/tbruneel/vscode-markdown-html/issues"
   },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "markdown",
+    "html",
+    "export",
+    "github-alerts",
+    "katex",
+    "mermaid"
+  ],
   "activationEvents": [
     "onCommand:extension.markdown-html.export",
     "onCommand:extension.markdown-html.showSource",
-    "onCommand:extension.markdown-pdf.html",
-    "onCommand:extension.markdown-pdf.settings",
     "onCustomEditor:markdown-html.viewer",
     "onLanguage:markdown"
   ],
-  "main": "./dist/extension",
+  "main": "./dist/extension.js",
   "contributes": {
     "customEditors": [
       {

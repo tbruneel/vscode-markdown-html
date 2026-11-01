@@ -23,27 +23,7 @@ const EXTENSION_ROOT = path.join(__dirname, '..');
 const SHOW_DETAILS_ACTION = 'Show Details';
 
 function getConfig<T>(key: string, defaultValue: T, resource?: vscode.Uri): T {
-  const htmlConfig = vscode.workspace.getConfiguration('markdown-html', resource);
-  const inspect = htmlConfig.inspect<T>(key);
-  if (
-    inspect &&
-    (inspect.workspaceFolderValue !== undefined ||
-      inspect.workspaceValue !== undefined ||
-      inspect.globalValue !== undefined)
-  ) {
-    return htmlConfig.get<T>(key, defaultValue);
-  }
-  const legacyConfig = vscode.workspace.getConfiguration('markdown-pdf', resource);
-  const legacyInspect = legacyConfig.inspect<T>(key);
-  if (
-    legacyInspect &&
-    (legacyInspect.workspaceFolderValue !== undefined ||
-      legacyInspect.workspaceValue !== undefined ||
-      legacyInspect.globalValue !== undefined)
-  ) {
-    return legacyConfig.get<T>(key, defaultValue);
-  }
-  return htmlConfig.get<T>(key, defaultValue);
+  return vscode.workspace.getConfiguration('markdown-html', resource).get<T>(key, defaultValue);
 }
 
 export function activate(context: vscode.ExtensionContext): void {
@@ -59,12 +39,6 @@ export function activate(context: vscode.ExtensionContext): void {
     }),
     vscode.commands.registerCommand('extension.markdown-html.showSource', async (uri?: vscode.Uri) => {
       await showSourceCommand(uri);
-    }),
-    vscode.commands.registerCommand('extension.markdown-pdf.html', async (uri?: vscode.Uri) => {
-      await exportMarkdownCommand(uri, false);
-    }),
-    vscode.commands.registerCommand('extension.markdown-pdf.settings', async (uri?: vscode.Uri) => {
-      await exportMarkdownCommand(uri, false);
     }),
     vscode.workspace.onDidSaveTextDocument(async (document: vscode.TextDocument) => {
       await onDidSaveMarkdownDocument(document);
