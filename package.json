@@ -116,8 +116,8 @@
         },
         "markdown-html.includeDefaultStyles": {
           "type": "boolean",
-          "default": false,
-          "description": "Include bundled fallback Markdown styles."
+          "default": true,
+          "description": "When neither 'markdown.styles' nor 'markdown-html.styles' is set, automatically inline the bundled VS Code Light/Dark 2026 stylesheet matching the active VS Code color theme."
         },
         "markdown-html.outputDirectory": {
           "type": "string",

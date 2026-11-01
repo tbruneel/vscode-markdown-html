@@ -304,15 +304,19 @@ export function makeHtml(data: string, uri: vscode.Uri): string | undefined {
 
 function readStyles(uri: vscode.Uri, htmlBody: string): string | undefined {
   try {
-    const includeDefaultStyles = getConfig<boolean>('includeDefaultStyles', false, uri);
+    const includeDefaultStyles = getConfig<boolean>('includeDefaultStyles', true, uri);
     const highlightStyle = getConfig<string>('highlightStyle', '', uri);
     const highlight = getConfig<boolean>('highlight', true, uri);
     const markdownStyles = vscode.workspace.getConfiguration('markdown', uri).get<string[]>('styles') || [];
     const customStyles = getConfig<string[]>('styles', [], uri);
+    const themeKind = vscode.window.activeColorTheme.kind;
+    const isDarkTheme =
+      themeKind === vscode.ColorThemeKind.Dark || themeKind === vscode.ColorThemeKind.HighContrast;
 
     let style =
       utils.buildStyleTags({
         includeDefaultStyles,
+        isDarkTheme,
         highlight,
         highlightStyle,
         markdownStyles,

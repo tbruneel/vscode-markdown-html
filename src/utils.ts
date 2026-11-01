@@ -293,6 +293,7 @@ function resolveHighlightStyle(baseDir: string, highlightStyle: string): { filen
 
 export interface BuildStyleTagsOptions {
   includeDefaultStyles: boolean;
+  isDarkTheme?: boolean;
   highlight: boolean;
   highlightStyle: string;
   markdownStyles: string[] | string;
@@ -319,24 +320,10 @@ function inlineOrLinkStylesheet(resolvedHref: string): string {
   return '<link rel="stylesheet" href="' + resolvedHref + '" type="text/css">';
 }
 
-/** Builds the concatenated <style> tags for default, highlight, and user styles (inlining local CSS files). */
+/** Builds the concatenated <style> tags for syntax highlighting, markdown.styles, customStyles, or the active VS Code 2026 fallback theme. */
 export function buildStyleTags(options: BuildStyleTagsOptions): string {
   let style = '';
   let filename = '';
-
-  if (options.includeDefaultStyles) {
-    filename = path.join(options.baseDir, 'styles', 'markdown.css');
-    style += makeCss(filename);
-  }
-
-  if (options.includeDefaultStyles) {
-    if (options.markdownStyles && Array.isArray(options.markdownStyles) && options.markdownStyles.length > 0) {
-      for (let i = 0; i < options.markdownStyles.length; i++) {
-        const markdownHref = options.resolveHrefFn(options.markdownStyles[i]);
-        style += inlineOrLinkStylesheet(markdownHref);
-      }
-    }
-  }
 
   if (options.highlight) {
     if (options.highlightStyle) {
@@ -352,16 +339,28 @@ export function buildStyleTags(options: BuildStyleTagsOptions): string {
     }
   }
 
-  if (options.includeDefaultStyles) {
-    filename = path.join(options.baseDir, 'styles', 'markdown-pdf.css');
-    style += makeCss(filename);
+  const hasMarkdownStyles = Array.isArray(options.markdownStyles) && options.markdownStyles.length > 0;
+  const hasCustomStyles = Array.isArray(options.customStyles) && options.customStyles.length > 0;
+
+  if (hasMarkdownStyles) {
+    for (let i = 0; i < options.markdownStyles.length; i++) {
+      const markdownHref = options.resolveHrefFn(options.markdownStyles[i]);
+      style += inlineOrLinkStylesheet(markdownHref);
+    }
   }
 
-  if (options.customStyles && Array.isArray(options.customStyles) && options.customStyles.length > 0) {
+  if (hasCustomStyles) {
     for (let i = 0; i < options.customStyles.length; i++) {
       const customHref = options.resolveHrefFn(options.customStyles[i]);
       style += inlineOrLinkStylesheet(customHref);
     }
+  }
+
+  if (!hasMarkdownStyles && !hasCustomStyles && options.includeDefaultStyles) {
+    const defaultThemeFile = options.isDarkTheme
+      ? 'markdown-vscode-dark2026.css'
+      : 'markdown-vscode-light2026.css';
+    style += makeCss(path.join(options.baseDir, 'styles', defaultThemeFile));
   }
 
   return style;

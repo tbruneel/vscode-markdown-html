@@ -1,0 +1,293 @@
+/*---------------------------------------------------------------------------------------------
+ *  VS Code Native Markdown Preview Stylesheet — Light 2026 (Standalone Export Edition)
+ *  Derived from:
+ *    - extensions/markdown-language-features/media/markdown.css
+ *    - extensions/theme-defaults/themes/2026-light.json
+ *--------------------------------------------------------------------------------------------*/
+
+:root {
+	--vscode-font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", system-ui, "Ubuntu", "Droid Sans", sans-serif;
+	--vscode-editor-font-family: "SF Mono", Monaco, Menlo, Consolas, "Ubuntu Mono", "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace;
+	--vscode-editor-background: #FFFFFF;
+	--vscode-editor-foreground: #202020;
+	--vscode-textLink-foreground: #0069CC;
+	--vscode-textLink-activeForeground: #0069CC;
+	--vscode-textPreformat-foreground: #606060;
+	--vscode-textPreformat-background: #ECECEC;
+	--vscode-textBlockQuote-background: #EAEAEA;
+	--vscode-textBlockQuote-border: #F0F1F2;
+	--vscode-textCodeBlock-background: #EAEAEA;
+	--vscode-widget-border: #E2E2E5;
+}
+
+html {
+	background-color: var(--vscode-editor-background);
+	color: var(--vscode-editor-foreground);
+}
+
+body {
+	background-color: var(--vscode-editor-background);
+	color: var(--vscode-editor-foreground);
+	font-family: var(--markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", system-ui, "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--markdown-font-size, 14px);
+	line-height: var(--markdown-line-height, 22px);
+	word-wrap: break-word;
+	width: 1012px;
+	margin: 0 auto;
+	padding: 32px;
+	box-sizing: border-box;
+}
+
+@media print {
+	body {
+		width: auto;
+		padding: 1em 26px 0;
+	}
+}
+
+/* Reset margin top for elements */
+h1, h2, h3, h4, h5, h6,
+p, ol, ul, pre {
+	margin-top: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 600;
+	margin-top: 24px;
+	margin-bottom: 16px;
+	line-height: 1.25;
+}
+
+/* Prevent `sub` and `sup` elements from affecting line height */
+sub,
+sup {
+	line-height: 0;
+}
+
+ul ul:first-child,
+ul ol:first-child,
+ol ul:first-child,
+ol ol:first-child {
+	margin-bottom: 0;
+}
+
+img, video {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: var(--vscode-textLink-foreground);
+	text-decoration: none;
+}
+
+a:hover {
+	color: var(--vscode-textLink-activeForeground);
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+p {
+	margin-bottom: 16px;
+}
+
+li p {
+	margin-bottom: 0.7em;
+}
+
+ul,
+ol {
+	margin-bottom: 0.7em;
+}
+
+hr {
+	border: 0;
+	height: 1px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+}
+
+h1 {
+	font-size: 2em;
+	margin-top: 0;
+	padding-bottom: 0.3em;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+}
+
+h2 {
+	font-size: 1.5em;
+	padding-bottom: 0.3em;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+}
+
+h3 {
+	font-size: 1.25em;
+}
+
+h4 {
+	font-size: 1em;
+}
+
+h5 {
+	font-size: 0.875em;
+}
+
+h6 {
+	font-size: 0.85em;
+}
+
+table {
+	border-collapse: collapse;
+	margin-bottom: 0.7em;
+	display: block;
+	width: max-content;
+	max-width: 100%;
+	overflow: auto;
+}
+
+th {
+	text-align: left;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.69);
+}
+
+th,
+td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid rgba(0, 0, 0, 0.18);
+}
+
+blockquote {
+	margin: 0 0 16px 0;
+	padding: 0 16px 0 10px;
+	background: var(--vscode-textBlockQuote-background);
+	border-left: 5px solid var(--vscode-textBlockQuote-border);
+	border-radius: 2px;
+}
+
+/* GitHub-style Markdown Alerts (> [!NOTE], > [!TIP], > [!IMPORTANT], > [!WARNING], > [!CAUTION]) */
+.markdown-alert {
+	--color-note: #0969da;
+	--color-tip: #1a7f37;
+	--color-warning: #9a6700;
+	--color-caution: #d1242f;
+	--color-important: #8250df;
+	padding: 0.5rem 1rem;
+	margin-bottom: 16px;
+	color: inherit;
+	border-left: 0.25em solid #888;
+}
+
+.markdown-alert > :first-child {
+	margin-top: 0;
+}
+
+.markdown-alert > :last-child {
+	margin-bottom: 0;
+}
+
+.markdown-alert > p:empty {
+	display: none;
+}
+
+.markdown-alert .markdown-alert-title {
+	display: flex;
+	font-weight: 500;
+	align-items: center;
+	line-height: 1;
+	margin-bottom: 6px;
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+	margin-right: 0.5rem;
+	display: inline-block;
+	overflow: visible !important;
+	vertical-align: text-bottom;
+	fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+	border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+	color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+	border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+	color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+	border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+	color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+	border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+	color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+	border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+	color: var(--color-caution);
+}
+
+code {
+	font-family: var(--vscode-editor-font-family);
+	font-size: 1em;
+	line-height: 1.357em;
+	color: var(--vscode-textPreformat-foreground);
+	background-color: var(--vscode-textPreformat-background);
+	padding: 1px 3px;
+	border-radius: 4px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre {
+	background-color: var(--vscode-textCodeBlock-background);
+	border: 1px solid var(--vscode-widget-border);
+}
+
+pre code {
+	display: inline-block;
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+	background: none;
+	padding: 0;
+}
+
+.page {
+	page-break-after: always;
+}

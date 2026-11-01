@@ -118,3 +118,4 @@ export class MarkdownHtmlViewerProvider implements vscode.CustomReadonlyEditorPr
     });
   }
 }
+
