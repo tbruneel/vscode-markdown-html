@@ -66,6 +66,17 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.workspace.onDidSaveTextDocument(async (document: vscode.TextDocument) => {
       await onDidSaveMarkdownDocument(document);
     }),
+    vscode.workspace.onDidChangeConfiguration(async (e: vscode.ConfigurationChangeEvent) => {
+      if (
+        e.affectsConfiguration('markdown.styles') ||
+        e.affectsConfiguration('markdown-html.styles') ||
+        e.affectsConfiguration('markdown-pdf.styles')
+      ) {
+        for (const doc of vscode.workspace.textDocuments) {
+          await onDidSaveMarkdownDocument(doc);
+        }
+      }
+    }),
   );
 }
 

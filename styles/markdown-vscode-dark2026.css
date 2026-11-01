@@ -24,6 +24,8 @@ body {
 html {
 	background-color: var(--vscode-editor-background);
 	color: var(--vscode-editor-foreground);
+	color-scheme: dark;
+	scrollbar-color: rgba(121, 121, 121, 0.4) #242526;
 	padding: 0;
 }
 
