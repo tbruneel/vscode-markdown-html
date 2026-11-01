@@ -8,5 +8,100 @@
 </head>
 <body>
 {{{content}}}
+<script>
+(function () {
+  function createCopyIcon() {
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('focusable', 'false');
+    svg.setAttribute('width', '16');
+    svg.setAttribute('height', '16');
+    svg.setAttribute('viewBox', '0 0 16 16');
+    svg.setAttribute('fill', 'none');
+    var p1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    p1.setAttribute('d', 'M4 4H2V14H11V12H4V4Z');
+    p1.setAttribute('fill', 'currentColor');
+    var p2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    p2.setAttribute('fill-rule', 'evenodd');
+    p2.setAttribute('clip-rule', 'evenodd');
+    p2.setAttribute('d', 'M5 2H14V11H5V2ZM6 3H13V10H6V3Z');
+    p2.setAttribute('fill', 'currentColor');
+    svg.appendChild(p1);
+    svg.appendChild(p2);
+    return svg;
+  }
+  function createCheckIcon() {
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('focusable', 'false');
+    svg.setAttribute('width', '16');
+    svg.setAttribute('height', '16');
+    svg.setAttribute('viewBox', '0 0 16 16');
+    svg.setAttribute('fill', 'none');
+    var p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    p.setAttribute('d', 'M6.27 10.87L3.63 8.23L2.56 9.3L6.27 13.01L14.07 5.21L13 4.14L6.27 10.87Z');
+    p.setAttribute('fill', 'currentColor');
+    svg.appendChild(p);
+    return svg;
+  }
+  function initCopyButtons() {
+    var blocks = document.querySelectorAll('pre > code');
+    for (var i = 0; i < blocks.length; i++) {
+      (function (code) {
+        var pre = code.parentElement;
+        if (!pre || pre.querySelector('.code-block-copy-button')) return;
+        var btn = document.createElement('button');
+        btn.className = 'code-block-copy-button';
+        btn.type = 'button';
+        btn.setAttribute('aria-label', 'Copy code block');
+        btn.appendChild(createCopyIcon());
+        var timer = null;
+        function markCopied() {
+          btn.replaceChildren(createCheckIcon());
+          btn.classList.add('copied');
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(function () {
+            btn.replaceChildren(createCopyIcon());
+            btn.classList.remove('copied');
+            timer = null;
+          }, 2000);
+        }
+        function fallbackCopy(text) {
+          var ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          try {
+            document.execCommand('copy');
+            markCopied();
+          } finally {
+            document.body.removeChild(ta);
+          }
+        }
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var text = code.textContent || '';
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(markCopied).catch(function () {
+              fallbackCopy(text);
+            });
+          } else {
+            fallbackCopy(text);
+          }
+        });
+        pre.appendChild(btn);
+      })(blocks[i]);
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCopyButtons);
+  } else {
+    initCopyButtons();
+  }
+})();
+</script>
 </body>
 </html>
