@@ -1,10 +1,9 @@
 {
   "name": "markdown-html",
   "displayName": "Markdown HTML",
-  "description": "Export Markdown (.md) to self-contained .md.html files with GitHub Alerts, KaTeX math, and a built-in rendered viewer.",
+  "description": "Exports Markdown files (.md) to self-contained Markdown files (.md.html) which are automatically opened by VS Code's built-in web browser.",
   "version": "1.0.0",
   "publisher": "tbruneel",
-  "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.110.0"
   },
@@ -20,9 +19,13 @@
     "katex",
     "mermaid"
   ],
+  "homepage": "https://github.com/tbruneel/vscode-markdown-html#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/tbruneel/vscode-markdown-html.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tbruneel/vscode-markdown-html/issues"
   },
   "activationEvents": [
     "onCommand:extension.markdown-html.export",
@@ -50,7 +53,7 @@
       {
         "command": "extension.markdown-html.export",
         "title": {
-          "value": "Markdown HTML: Export (.md.html)",
+          "value": "Markdown HTML: Export",
           "original": "Open Preview to the Side~export"
         },
         "icon": "$(export)",
@@ -115,7 +118,7 @@
           "enumDescriptions": [
             "Automatically update <file>.md.html on save only if <file>.md.html already exists next to the Markdown file.",
             "Always create or update <file>.md.html whenever a Markdown file is saved.",
-            "Only export manually via the 'Markdown HTML: Export (.md.html)' command."
+            "Only export manually via the 'Markdown HTML: Export' command."
           ],
           "default": "ifExists",
           "description": "Control automatic .md.html export when saving a Markdown (.md) file."
