@@ -26,6 +26,7 @@ document.addEventListener('click', function (e) {
 export class MarkdownHtmlViewerProvider implements vscode.CustomReadonlyEditorProvider {
   public static readonly viewType = 'markdown-html.viewer';
   private static readonly activePanels = new Map<string, Set<vscode.WebviewPanel>>();
+  private static activeFilePath: string | undefined;
 
   public static register(context: vscode.ExtensionContext): vscode.Disposable {
     const provider = new MarkdownHtmlViewerProvider();
@@ -37,6 +38,10 @@ export class MarkdownHtmlViewerProvider implements vscode.CustomReadonlyEditorPr
         supportsMultipleEditorsPerDocument: true,
       },
     );
+  }
+
+  public static getActiveFilePath(): string | undefined {
+    return MarkdownHtmlViewerProvider.activeFilePath;
   }
 
   public static refreshFile(filePath: string): void {
@@ -94,6 +99,17 @@ export class MarkdownHtmlViewerProvider implements vscode.CustomReadonlyEditorPr
       MarkdownHtmlViewerProvider.activePanels.set(key, set);
     }
     set.add(webviewPanel);
+    if (webviewPanel.active) {
+      MarkdownHtmlViewerProvider.activeFilePath = filePath;
+    }
+
+    webviewPanel.onDidChangeViewState((e) => {
+      if (e.webviewPanel.active) {
+        MarkdownHtmlViewerProvider.activeFilePath = filePath;
+      } else if (MarkdownHtmlViewerProvider.activeFilePath === filePath) {
+        MarkdownHtmlViewerProvider.activeFilePath = undefined;
+      }
+    });
 
     webviewPanel.webview.html = MarkdownHtmlViewerProvider.loadHtml(filePath);
 
@@ -108,6 +124,9 @@ export class MarkdownHtmlViewerProvider implements vscode.CustomReadonlyEditorPr
 
     webviewPanel.onDidDispose(() => {
       watcher.dispose();
+      if (MarkdownHtmlViewerProvider.activeFilePath === filePath) {
+        MarkdownHtmlViewerProvider.activeFilePath = undefined;
+      }
       const panels = MarkdownHtmlViewerProvider.activePanels.get(key);
       if (panels) {
         panels.delete(webviewPanel);

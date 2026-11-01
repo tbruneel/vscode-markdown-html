@@ -22,9 +22,10 @@ Derived from [`yzane/vscode-markdown-pdf`](https://github.com/yzane/vscode-markd
 4. **Smart Auto-Update on Save (`markdown-html.convertOnSave`):**
    - Defaults to `"ifExists"`: export a `.md` file manually once via **Markdown HTML: Export (.md.html)** to create `<file>.md.html`, and every subsequent `Ctrl+S` on `<file>.md` automatically updates `<file>.md.html` (and live-reloads any open viewer tab).
    - Can also be set to `"always"` or `"never"`.
-5. **Built-In Rendered Viewer for `*.md.html` (`markdown-html.viewer`):**
+5. **Built-In Rendered Viewer for `*.md.html` (`markdown-html.viewer`) & Editor Title Bar Actions:**
    - Registers a `CustomReadonlyEditorProvider` with `"priority": "default"` for `*.md.html`.
-   - Clicking any `*.md.html` file in VS Code's Explorer opens the rendered webpage view immediately instead of raw HTML source (use **Reopen Editor With... $\rightarrow$ Text Editor** whenever you want to inspect the source).
+   - Clicking any `*.md.html` file in VS Code's Explorer opens the rendered webpage view immediately instead of raw HTML source (use **Reopen Editor With... $\rightarrow$ Text Editor** whenever you want to inspect the raw HTML).
+   - Adds a **`Markdown HTML: Export (.md.html)`** button (`$(export)`) in the editor title bar of `.md` files right next to the Markdown Preview buttons, and an **`Open Source File`** button (`$(file-code)`) in the `.md.html` viewer title bar to jump back to the corresponding `.md` file.
 
 ---
 

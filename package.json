@@ -26,6 +26,7 @@
   },
   "activationEvents": [
     "onCommand:extension.markdown-html.export",
+    "onCommand:extension.markdown-html.showSource",
     "onCommand:extension.markdown-pdf.html",
     "onCommand:extension.markdown-pdf.settings",
     "onCustomEditor:markdown-html.viewer",
@@ -48,7 +49,17 @@
     "commands": [
       {
         "command": "extension.markdown-html.export",
-        "title": "Markdown HTML: Export (.md.html)",
+        "title": {
+          "value": "Markdown HTML: Export (.md.html)",
+          "original": "Open Preview to the Side~export"
+        },
+        "icon": "$(export)",
+        "group": "markdown-html"
+      },
+      {
+        "command": "extension.markdown-html.showSource",
+        "title": "Open Source File",
+        "icon": "$(file-code)",
         "group": "markdown-html"
       }
     ],
@@ -57,6 +68,22 @@
         {
           "when": "resourceLangId == markdown",
           "command": "extension.markdown-html.export"
+        },
+        {
+          "when": "activeCustomEditorId == 'markdown-html.viewer'",
+          "command": "extension.markdown-html.showSource"
+        }
+      ],
+      "editor/title": [
+        {
+          "when": "editorLangId == markdown",
+          "command": "extension.markdown-html.export",
+          "group": "navigation@1"
+        },
+        {
+          "when": "activeCustomEditorId == 'markdown-html.viewer'",
+          "command": "extension.markdown-html.showSource",
+          "group": "navigation@3"
         }
       ],
       "editor/context": [

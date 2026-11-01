@@ -498,6 +498,14 @@ export function toMdHtmlFilename(mdFilename: string): string {
   return mdFilename + '.md.html';
 }
 
+/** Converts a .md.html file path back to its corresponding source .md file path. */
+export function toSourceMdFilename(mdHtmlFilename: string): string {
+  if (/\.md\.html$/i.test(mdHtmlFilename)) {
+    return mdHtmlFilename.slice(0, -'.html'.length);
+  }
+  return mdHtmlFilename.replace(/\.html$/i, '') + '.md';
+}
+
 // Sanitize mode for raw HTML in Markdown. 'gfm' removes dangerous tags per
 // GitHub Flavored Markdown; 'gfm-allow-style' keeps <style>; 'none' disables.
 export type SanitizeMode = 'gfm' | 'gfm-allow-style' | 'none';

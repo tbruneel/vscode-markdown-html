@@ -57,6 +57,9 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand('extension.markdown-html.export', async (uri?: vscode.Uri) => {
       await exportMarkdownCommand(uri, false);
     }),
+    vscode.commands.registerCommand('extension.markdown-html.showSource', async (uri?: vscode.Uri) => {
+      await showSourceCommand(uri);
+    }),
     vscode.commands.registerCommand('extension.markdown-pdf.html', async (uri?: vscode.Uri) => {
       await exportMarkdownCommand(uri, false);
     }),
@@ -142,6 +145,46 @@ async function exportMarkdownCommand(uri?: vscode.Uri, isOnSave = false): Promis
     exportDocumentToHtml(document, targetFilename, isOnSave);
   } catch (error) {
     reportError('Markdown HTML: Export failed.', error);
+  }
+}
+
+async function showSourceCommand(uri?: vscode.Uri): Promise<void> {
+  try {
+    let htmlFilePath: string | undefined = uri?.fsPath;
+
+    if (!htmlFilePath) {
+      const activeTab = vscode.window.tabGroups.activeTabGroup.activeTab;
+      if (activeTab?.input instanceof vscode.TabInputCustom && activeTab.input.uri) {
+        htmlFilePath = activeTab.input.uri.fsPath;
+      }
+    }
+
+    if (!htmlFilePath) {
+      htmlFilePath = MarkdownHtmlViewerProvider.getActiveFilePath();
+    }
+
+    if (!htmlFilePath) {
+      vscode.window.showWarningMessage('Markdown HTML: No active .md.html viewer.');
+      return;
+    }
+
+    const mdFilePath = utils.toSourceMdFilename(htmlFilePath);
+    if (!utils.isExistsPath(mdFilePath)) {
+      vscode.window.showWarningMessage(
+        `Markdown HTML: Source Markdown file not found (${path.basename(mdFilePath)}).`,
+      );
+      return;
+    }
+
+    const mdUri = vscode.Uri.file(mdFilePath);
+    const normalizedTarget = path.normalize(mdFilePath).toLowerCase();
+    const existingEditor = vscode.window.visibleTextEditors.find(
+      (editor) => path.normalize(editor.document.uri.fsPath).toLowerCase() === normalizedTarget,
+    );
+    const document = await vscode.workspace.openTextDocument(mdUri);
+    await vscode.window.showTextDocument(document, existingEditor ? existingEditor.viewColumn : undefined);
+  } catch (error) {
+    reportError('Markdown HTML: Failed to open source Markdown file.', error);
   }
 }
 
