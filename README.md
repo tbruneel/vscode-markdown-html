@@ -32,12 +32,10 @@ Derived from [`yzane/vscode-markdown-pdf`](https://github.com/yzane/vscode-markd
 
 **Zero configuration is needed by default**—installing the three extensions automatically configures the `1012px` preview layout, GitHub Alerts, `*.md.html` viewer, auto-save updates, and active VS Code Light/Dark theme export.
 
-If you want to override the theme in **both** the built-in Markdown Preview and `.md.html` exports (for example, to use GitHub Light), set VS Code's native `"markdown.styles"`:
+If you want to override the theme in **both** the built-in Markdown Preview and `.md.html` exports (for example, to use GitHub Light), run **`Markdown Stylesheets: Select Theme`** from the Command Palette or set `"markdown-stylesheets.theme"` in `settings.json`:
 
 ```json
 {
-    "markdown.styles": [
-        "C:\\Users\\Tuur Bruneel\\.vscode\\extensions\\tbruneel.markdown-stylesheets-1.0.0\\markdown-github-light.css"
-    ]
+    "markdown-stylesheets.theme": "github-light" // Options: "auto", "vscode-light2026", "vscode-dark2026", "github-light", "github-dark"
 }
 ```
