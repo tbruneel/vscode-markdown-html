@@ -3,6 +3,7 @@ node_modules/**
 !node_modules/highlight.js/styles/
 !node_modules/highlight.js/styles/**
 tsconfig.json
+package-lock.json
 .gitignore
 *.vsix
 README.md.html
